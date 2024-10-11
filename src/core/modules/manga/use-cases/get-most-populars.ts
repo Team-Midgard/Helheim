@@ -14,7 +14,7 @@ export default class GetMangaMostPopulars {
         const $ = load(await response.text());
         const data: lerMangasInterface[] = [];
 
-        $('.popular-item-wrap').each((index, element) => {
+        $('.popular-item-wrap').each((_, element) => {
             const title = $(element).find('.widget-title a').text().trim();
             const link = $(element).find('.widget-title a').attr('href') || '';
             const imageUrl = $(element).find('.popular-img img').attr('src') || '';
@@ -26,7 +26,7 @@ export default class GetMangaMostPopulars {
                 chapters.push({ title: chapterTitle, link: chapterLink });
             });
 
-            data.push({ title, link, imageUrl, chapters, rating: 'N/A' }); // Adjust this as needed
+            data.push({ title, link, imageUrl, chapters, rating: 'N/A' }); 
         });
 
         return data;

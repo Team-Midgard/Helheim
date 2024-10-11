@@ -15,7 +15,7 @@ export default class SearchManga {
         const $ = load(await response.text());
         const data: lerMangasInterface[] = [];
 
-        $('.c-tabs-item__content').each((index, element) => {
+        $('.c-tabs-item__content').each((_, element) => {
             const title = $(element).find('.post-title a').text().trim();
             const link = $(element).find('.post-title a').attr('href');
             const imageUrl = $(element).find('.tab-thumb img').attr('src');

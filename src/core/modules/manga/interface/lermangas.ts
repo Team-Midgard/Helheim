@@ -1,5 +1,6 @@
 export default interface lerMangasInterface {
     title?: string;
+    description?: string;
     link?: string;
     imageUrl?: string;
     rating?: string;
@@ -7,8 +8,10 @@ export default interface lerMangasInterface {
     genres?: string[];
     status?: string;
     releaseYear?: string;
+    releaseDate?: string;
     chapters?: {
         title?: string;
         link?: string;
+        releaseDate?: string
     }[];
 }

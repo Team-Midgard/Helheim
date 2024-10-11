@@ -36,6 +36,16 @@ const MangaRouter = (app: Hono) => {
             return c.json({ message: "Error fetching manga", error: error }, 500);
         }
     })
+
+    app.get("/manga", async (c) => {
+        const query = String(c.req.query('q'))
+        try {
+            const mangaInfo = await newManga.infoManga(query);
+            return c.json(mangaInfo)
+        } catch (error) {
+            return c.json({ message: "Error fetching manga", error: error }, 500);
+        }
+    })
 }
 
 export default MangaRouter;
