@@ -46,6 +46,13 @@ const MangaRouter = (app: Hono) => {
             return c.json({ message: "Error fetching manga", error: error }, 500);
         }
     })
+
+    app.get("/images", async (c) => {
+        const query = String(c.req.query('q'))
+        const mangaImages = await newManga.getMangaImages(query)
+        return c.json(mangaImages)
+
+    })
 }
 
 export default MangaRouter;
