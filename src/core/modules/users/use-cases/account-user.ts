@@ -24,7 +24,7 @@ export default class AccountUser {
         return token;
     }
 
-    async userProfile(jwt: string): Promise<string> {
+    async userProfile(jwt: string): Promise<userInterface | null> {
         return await this.userInfo.userProfile(jwt)
     }
 }
