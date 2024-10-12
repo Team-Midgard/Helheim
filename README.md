@@ -38,3 +38,50 @@ Welcome to the Earth project! This project provides a simple API for retrieving 
 - **Example** : Observer this is url link -> "https://lermangas.me/manga/mago-do-infinito/capitulo-82/"
 `GET http://localhost:3000/images?q=${url_link}`
 
+### Users
+
+# **Endpoint**: `/users`
+- **Method**: `POST`
+- **Description**: Create user
+- **Example** : `
+{
+    "username": "novousuario",
+    "email": "novoasf@exemplo.com",
+    "password": "senha123"
+}`
+`GET http://localhost:3000/users`
+
+# **Endpoint**: `/users/:id`
+- **Method**: `DELETE`
+- **Description**: Delete user
+- **Example** : 
+`DELETE http://localhost:3000/users/:id`
+
+# **Endpoint**: `/users/:id`
+- **Method**: `PUT`
+- **Description**: Update user
+- **Example** : `
+{
+    "username": "novousuario",
+    "email": "atualizado@exemplo.com",
+    "password": "senha123"
+}`
+`PUT http://localhost:3000/users/:id`
+
+# **Endpoint**: `/users/id/:id`
+- **Method**: `GET`
+- **Description**: Search user by id
+- **Example** : 
+`GET http://localhost:3000/users/id/:id`
+
+# **Endpoint**: `/users/email/:email`
+- **Method**: `GET`
+- **Description**: Search user by email
+- **Example** : 
+`GET http://localhost:3000/users/email/:email`
+
+# **Endpoint**: `/users/name/:username`
+- **Method**: `GET`
+- **Description**: Search user by name
+- **Example** : 
+`GET http://localhost:3000/users/name/:username`
