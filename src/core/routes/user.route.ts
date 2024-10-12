@@ -64,6 +64,16 @@ const UserRouter = (app: Hono) => {
             return c.json({ message: "Error searching users", error: error }, 500);
         }
     })
+
+    app.post("/users/login", async (c) => {
+        try {
+            const { email, password } = await c.req.json();
+            const userData = await newUser.userLogin(email, password);
+            return c.json(userData);
+        } catch (error) {
+            return c.json({ message: "Error login user", error: error }, 500);
+        }
+    });
 }
 
 export default UserRouter

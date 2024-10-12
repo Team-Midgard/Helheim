@@ -1,4 +1,5 @@
 import type userInterface from "./interface/user";
+import AccountUser from "./use-cases/account-user";
 import CreateUser from "./use-cases/create-user";
 import DeleteUser from "./use-cases/delete-user";
 import ReadUser from "./use-cases/read-user";
@@ -9,12 +10,14 @@ export default class UserController {
     private deleteUser: DeleteUser
     private updateUser: UpdateUser
     private readUser: ReadUser
+    private loginuser: AccountUser
 
     constructor() {
         this.createUser = new CreateUser()
         this.deleteUser = new DeleteUser()
         this.updateUser = new UpdateUser()
         this.readUser = new ReadUser()
+        this.loginuser = new AccountUser()
     }
 
     async userCreate(userData: userInterface) {
@@ -39,5 +42,17 @@ export default class UserController {
 
     async findAllByUsername(userName: string) {
         return await this.readUser.findAllByUsername(userName);
+    }
+
+    async userLogin(email: string, password: string) {
+        return await this.loginuser.loginUser(email, password);
+    }
+
+    async verifyToken(jwt: string) {
+        return await this.loginuser.verifyToken(jwt);
+    }
+
+    async decodeToken(jwt: string) {
+        return await this.loginuser.decodeToken(jwt);
     }
 }

@@ -13,11 +13,10 @@ export default class ReadUser extends BaseRepository<UserEntity> {
         return user
     }
 
-    async findOneByEmail(userEmail: string): Promise<userInterface[]> {
-        const user = await this.repository.find({
+    async findOneByEmail(userEmail: string): Promise<userInterface | null> {
+        const user = await this.repository.findOne({
             where: { email: userEmail }
         });
-        if (user.length === 0) throw new Error("User not found");
         return user;
     }
 
