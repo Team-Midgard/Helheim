@@ -1,8 +1,15 @@
 import type { Hono } from "hono";
-import { bearerAuth } from 'hono/bearer-auth'
 import UserController from "../modules/users/user.controller";
 import Config from "../../common/config/app.config";
 import { jwt } from "hono/jwt";
+
+import {
+    getCookie,
+    getSignedCookie,
+    setCookie,
+    setSignedCookie,
+    deleteCookie,
+} from 'hono/cookie'
 
 const UserRouter = (app: Hono) => {
     const newUser = new UserController();
@@ -82,11 +89,42 @@ const UserRouter = (app: Hono) => {
         const token = c.req.header("Authorization")?.split(" ")[1];
         try {
             const userData = await newUser.userProfile(String(token));
+
             return c.json(userData);
         } catch (error) {
             return c.json({ message: "Error fetching user", error: error instanceof Error ? error.message : "Unknown error" }, 500);
         }
     });
+
+    // TODO IMPLEMENT COOKIES
+    // app.get("/user/test", async (c) => {
+    //     const token = String("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vdm9AZXhlbXBsby5jb20iLCJleHAiOjE3Mjg3NzU4NjV9.YLaPw8Wzr3YPfVFjweb7bCLE_83vCzpMK1Upi68iaho");
+
+    //     await setSignedCookie(
+    //         c,
+    //         'token',
+    //         token,
+    //         Config.secret,
+    //         {
+    //             path: '/',
+    //             secure: false, 
+    //             httpOnly: true,
+    //             maxAge: 1000,
+    //             expires: new Date(Date.now() + 1000 * 60 * 60), 
+    //             sameSite: 'Strict',
+    //         }
+    //     );
+
+    //     const cookieToken = await getSignedCookie(c, Config.secret, 'token');
+    //     const verifuied = await newUser.verifyJwt(String(cookieToken));
+
+    //     return c.json({
+    //         data: "test",
+    //         token: cookieToken,
+    //         verify: verifuied,
+    //     });
+    // });
+
 }
 
 export default UserRouter
