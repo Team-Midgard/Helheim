@@ -1,14 +1,7 @@
 import { decode, sign, verify } from 'hono/jwt'
 import Config from "../../../../common/config/app.config";
-import ReadUser from '../use-cases/read-user';
 
 export default class AuthService {
-    private readUser: ReadUser
-
-    constructor() {
-        this.readUser = new ReadUser()
-    }
-
     async singJwt(email: string): Promise<string> {
         const payload = {
             email: email,
@@ -27,8 +20,7 @@ export default class AuthService {
     }
 
     async decodeJwt(jwt: string) {
-        const token = jwt
-        const { header, payload } = decode(token)
+        const { header, payload } = decode(jwt)
         return { header, payload }
     }
 }   

@@ -48,11 +48,7 @@ export default class UserController {
         return await this.loginuser.loginUser(email, password);
     }
 
-    async verifyToken(jwt: string) {
-        return await this.loginuser.verifyToken(jwt);
-    }
-
-    async decodeToken(jwt: string) {
-        return await this.loginuser.decodeToken(jwt);
+    async userProfile(jwt: string) {
+        return await this.loginuser.userProfile(jwt);
     }
 }

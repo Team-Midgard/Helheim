@@ -1,5 +1,8 @@
 import type { Hono } from "hono";
+import { bearerAuth } from 'hono/bearer-auth'
 import UserController from "../modules/users/user.controller";
+import Config from "../../common/config/app.config";
+import { jwt } from "hono/jwt";
 
 const UserRouter = (app: Hono) => {
     const newUser = new UserController();
@@ -66,12 +69,22 @@ const UserRouter = (app: Hono) => {
     })
 
     app.post("/users/login", async (c) => {
+        const { email, password } = await c.req.json();
         try {
-            const { email, password } = await c.req.json();
             const userData = await newUser.userLogin(email, password);
             return c.json(userData);
         } catch (error) {
             return c.json({ message: "Error login user", error: error }, 500);
+        }
+    });
+
+    app.get("/user/profile", jwt({ secret: Config.secret, alg: "HS256" }), async (c) => {
+        const token = c.req.header("Authorization")?.split(" ")[1];
+        try {
+            const userData = await newUser.userProfile(String(token));
+            return c.json(userData);
+        } catch (error) {
+            return c.json({ message: "Error fetching user", error: error instanceof Error ? error.message : "Unknown error" }, 500);
         }
     });
 }
