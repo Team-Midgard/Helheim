@@ -1,11 +1,10 @@
 import Config from "../../../../common/config/app.config";
-import lerMangasInterface from "../interface/lermangas";
+import type lerMangasInterface from "../interface/lermangas";
 import { load } from "cheerio";
 
 const url = Config.api.url;
 
 export default class GetManga {
-    constructor() { }
 
     async getMangas(pages: number): Promise<lerMangasInterface[]> {
         if (pages <= 0) throw new Error("Navegação inválida");

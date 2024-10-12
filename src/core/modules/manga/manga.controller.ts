@@ -1,4 +1,3 @@
-import lerMangasInterface from "./interface/lermangas";
 import GetImagesManga from "./use-cases/get-images";
 import GetManga from "./use-cases/get-mangas";
 import GetMangaMostPopulars from "./use-cases/get-most-populars";
@@ -20,7 +19,7 @@ export default class MangaController {
         this.mangaImages = new GetImagesManga()
     }
 
-    async getAllManga(pages: number = 1) {
+    async getAllManga(pages = 1) {
         return await this.getManga.getMangas(pages);
     }
 
@@ -28,7 +27,7 @@ export default class MangaController {
         return await this.getMostPopulars.getMostPopulars();
     }
 
-    async searchMangas(pages: number = 1, query: string) {
+    async searchMangas(query: string, pages = 1) {
         return await this.searchManga.searchManga(pages, query);
     }
 

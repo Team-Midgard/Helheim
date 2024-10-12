@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import type { Hono } from "hono";
 import MainRouter from "../../core/routes/main.route";
 import MangaRouter from "../../core/routes/manga.route";
 

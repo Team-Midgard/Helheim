@@ -1,6 +1,5 @@
 import { load } from "cheerio";
 export default class GetImagesManga {
-    constructor() { }
 
     async getImagesManga(query: string): Promise<{ [index: number]: string }> {
         const pagesUrl = query;

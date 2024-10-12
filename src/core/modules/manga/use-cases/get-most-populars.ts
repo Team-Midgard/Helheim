@@ -1,11 +1,10 @@
 import Config from "../../../../common/config/app.config";
-import lerMangasInterface from "../interface/lermangas";
+import type lerMangasInterface from "../interface/lermangas";
 import { load } from "cheerio";
 
 const url = Config.api.url;
 
 export default class GetMangaMostPopulars {
-    constructor() { }
 
     async getMostPopulars(): Promise<lerMangasInterface[]> {
         const response = await fetch(url);

@@ -1,17 +1,16 @@
 import Config from "../../../../common/config/app.config";
-import lerMangasInterface from "../interface/lermangas";
+import type lerMangasInterface from "../interface/lermangas";
 import { load } from "cheerio";
 
 const url = Config.api.url;
 
 export default class SearchManga {
-    constructor() { }
 
     async searchManga(pages: number, query: string): Promise<lerMangasInterface[]> {
         if (pages <= 0) throw new Error("Navegação inválida");
         const pagesUrl = `${url}page/${pages}/?s=${query}&post_type=wp-manga`;
         const response = await fetch(pagesUrl);
-        
+
         const $ = load(await response.text());
         const data: lerMangasInterface[] = [];
 
@@ -34,16 +33,16 @@ export default class SearchManga {
                 chapters.push({ title: chapterTitle, link: chapterLink });
             });
 
-            data.push({ 
-                title, 
-                link, 
-                imageUrl, 
-                rating, 
-                alternativeName, 
-                genres, 
-                status, 
-                releaseYear, 
-                chapters 
+            data.push({
+                title,
+                link,
+                imageUrl,
+                rating,
+                alternativeName,
+                genres,
+                status,
+                releaseYear,
+                chapters
             });
         });
 

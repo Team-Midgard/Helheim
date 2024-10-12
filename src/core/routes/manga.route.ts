@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import type { Hono } from "hono";
 import MangaController from "../modules/manga/manga.controller";
 
 const MangaRouter = (app: Hono) => {
@@ -26,16 +26,17 @@ const MangaRouter = (app: Hono) => {
     })
 
     app.get("/search", async (c) => {
-        const pageParam = c.req.query('p')
-        const query = String(c.req.query('q'))
-        const pages = pageParam ? Number(pageParam) : 1;
+        const pageParam = c.req.query('p');
+        const query = String(c.req.query('q')); 
+        const pages = Number(pageParam) || 1;
         try {
-            const searchManga = await newManga.searchMangas(pages, query);
-            return c.json(searchManga)
+            const searchManga = await newManga.searchMangas(query, pages);
+            return c.json(searchManga);
         } catch (error) {
             return c.json({ message: "Error fetching manga", error: error }, 500);
         }
-    })
+    });
+    
 
     app.get("/manga", async (c) => {
         const query = String(c.req.query('q'))

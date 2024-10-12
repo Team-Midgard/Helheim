@@ -1,11 +1,10 @@
 import Config from "../../../../common/config/app.config";
-import lerMangasInterface from "../interface/lermangas";
+import type lerMangasInterface from "../interface/lermangas";
 import { load } from "cheerio";
 
 const url = Config.api.url;
 
 export default class InfoManga {
-    constructor() { }
 
     async getMangas(query: string): Promise<lerMangasInterface[]> {
         const pageUrl = query;
@@ -28,7 +27,7 @@ export default class InfoManga {
             const releaseYear = $(element).find('.summary-heading:contains("Lançamento") + .summary-content a').text().trim();
 
             const chapters: { title: string; link: string; releaseDate?: string }[] = [];
-            
+
             // Para cada capítulo dentro do mangá
             $(element).find('.main.version-chap .wp-manga-chapter').each((_, chapterElement) => {
                 const chapterTitle = $(chapterElement).find('a').text().trim();
