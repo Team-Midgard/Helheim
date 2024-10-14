@@ -79,51 +79,44 @@ const UserRouter = (app: Hono) => {
         const { email, password } = await c.req.json();
         try {
             const userData = await newUser.userLogin(email, password);
-            return c.json(userData);
+            const token = userData
+
+            await setSignedCookie(
+                c,
+                'token',
+                token,
+                Config.secret,
+                {
+                    path: '/',
+                    secure: false,
+                    httpOnly: true,
+                    maxAge: 1000,
+                    expires: new Date(Date.now() + 1000 * 60 * 60),
+                    sameSite: 'Strict',
+                }
+            );
+            return c.json({
+                message: "User logged successfully",
+            })
         } catch (error) {
             return c.json({ message: "Error login user", error: error }, 500);
         }
     });
 
-    app.get("/user/profile", jwt({ secret: Config.secret, alg: "HS256" }), async (c) => {
-        const token = c.req.header("Authorization")?.split(" ")[1];
+    app.get("/user/profile", async (c) => {
         try {
-            const userData = await newUser.userProfile(String(token));
+            const token = await getSignedCookie(c, Config.secret, 'token');
+            if (!token) throw new Error("Token not found");
 
-            return c.json(userData);
+            const verified = await newUser.verifyJwt(String(token));
+            if (!verified) throw new Error("Invalid token");
+
+            const userProfile = await newUser.userProfile(String(token));
+            return c.json(userProfile);
         } catch (error) {
             return c.json({ message: "Error fetching user", error: error instanceof Error ? error.message : "Unknown error" }, 500);
         }
     });
-
-    // TODO IMPLEMENT COOKIES
-    // app.get("/user/test", async (c) => {
-    //     const token = String("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vdm9AZXhlbXBsby5jb20iLCJleHAiOjE3Mjg3NzU4NjV9.YLaPw8Wzr3YPfVFjweb7bCLE_83vCzpMK1Upi68iaho");
-
-    //     await setSignedCookie(
-    //         c,
-    //         'token',
-    //         token,
-    //         Config.secret,
-    //         {
-    //             path: '/',
-    //             secure: false, 
-    //             httpOnly: true,
-    //             maxAge: 1000,
-    //             expires: new Date(Date.now() + 1000 * 60 * 60), 
-    //             sameSite: 'Strict',
-    //         }
-    //     );
-
-    //     const cookieToken = await getSignedCookie(c, Config.secret, 'token');
-    //     const verifuied = await newUser.verifyJwt(String(cookieToken));
-
-    //     return c.json({
-    //         data: "test",
-    //         token: cookieToken,
-    //         verify: verifuied,
-    //     });
-    // });
 
 }
 
