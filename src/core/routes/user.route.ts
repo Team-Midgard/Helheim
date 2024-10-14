@@ -1,14 +1,10 @@
 import type { Hono } from "hono";
 import UserController from "../modules/users/user.controller";
 import Config from "../../common/config/app.config";
-import { jwt } from "hono/jwt";
 
 import {
-    getCookie,
     getSignedCookie,
-    setCookie,
     setSignedCookie,
-    deleteCookie,
 } from 'hono/cookie'
 
 const UserRouter = (app: Hono) => {

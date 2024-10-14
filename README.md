@@ -6,41 +6,46 @@ Welcome to the Earth project! This project provides a simple API for retrieving 
 
 ### Manga
 
-# **Endpoint**: `/all-manga`
+## **Endpoint**: `/all-manga`
+
 - **Method**: `GET`
 - **Description**: Retrieve a list of all manga. You can paginate the results using the `page` query parameter.
 - **Example** :
 `GET http://localhost:3000/all-manga`
 `GET http://localhost:3000/all-manga?page=${number}`
 
+## **Endpoint**: `/most-populars`
 
-# **Endpoint**: `/most-populars`
 - **Method**: `GET`
 - **Description**: Retrieve a list of all with most views manga.
 - **Example** :
 `GET http://localhost:3000/most-populars`
 
-# **Endpoint**: `/search`
+## **Endpoint**: `/search`
+
 - **Method**: `GET`
 - **Description**: Retrive your search manga list.
 - **Example** :
 `GET http://localhost:3000/search?p=${page}&q=${slug_serie}`
 
-# **Endpoint**: `/manga`
+## **Endpoint**: `/manga`
+
 - **Method**: `GET`
 - **Description**: Retrive your manga with chapter.
-- **Example** : Observer this is url link -> "https://lermangas.me/manga/jujutsu-kaisen/"
+- **Example** : Observer this is url link -> "<https://lermangas.me/manga/jujutsu-kaisen/>"
 `GET http://localhost:3000/manga?q=${url_link}`
 
-# **Endpoint**: `/images`
+## **Endpoint**: `/images`
+
 - **Method**: `GET`
 - **Description**: Retrive all images from chapter
-- **Example** : Observer this is url link -> "https://lermangas.me/manga/mago-do-infinito/capitulo-82/"
+- **Example** : Observer this is url link -> "<https://lermangas.me/manga/mago-do-infinito/capitulo-82/>"
 `GET http://localhost:3000/images?q=${url_link}`
 
 ### Users
 
-# **Endpoint**: `/users`
+## **Endpoint**: `/users`
+
 - **Method**: `POST`
 - **Description**: Create user
 - **Example** : `
@@ -51,13 +56,15 @@ Welcome to the Earth project! This project provides a simple API for retrieving 
 }`
 `GET http://localhost:3000/users`
 
-# **Endpoint**: `/users/:id`
+## **Endpoint**: `/users/:id`
+
 - **Method**: `DELETE`
 - **Description**: Delete user
-- **Example** : 
+- **Example** :
 `DELETE http://localhost:3000/users/:id`
 
-# **Endpoint**: `/users/:id`
+## **Endpoint** : `/users/:id`
+
 - **Method**: `PUT`
 - **Description**: Update user
 - **Example** : `
@@ -68,20 +75,23 @@ Welcome to the Earth project! This project provides a simple API for retrieving 
 }`
 `PUT http://localhost:3000/users/:id`
 
-# **Endpoint**: `/users/id/:id`
+## **Endpoint**: `/users/id/:id`
+
 - **Method**: `GET`
 - **Description**: Search user by id
-- **Example** : 
+- **Example** :
 `GET http://localhost:3000/users/id/:id`
 
-# **Endpoint**: `/users/email/:email`
+## **Endpoint**: `/users/email/:email`
+
 - **Method**: `GET`
 - **Description**: Search user by email
-- **Example** : 
+- **Example** :
 `GET http://localhost:3000/users/email/:email`
 
-# **Endpoint**: `/users/name/:username`
+## **Endpoint**: `/users/name/:username`
+
 - **Method**: `GET`
 - **Description**: Search user by name
-- **Example** : 
+- **Example** :
 `GET http://localhost:3000/users/name/:username`
