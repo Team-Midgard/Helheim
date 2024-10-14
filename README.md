@@ -32,14 +32,14 @@ Welcome to the Earth project! This project provides a simple API for retrieving 
 
 - **Method**: `GET`
 - **Description**: Retrive your manga with chapter.
-- **Example** : Observer this is url link -> "<https://lermangas.me/manga/jujutsu-kaisen/>"
+- **Example** : Observer this is url link -> "jujutsu-kaisen>"
 `GET http://localhost:3000/manga?q=${url_link}`
 
 ## **Endpoint**: `/images`
 
 - **Method**: `GET`
 - **Description**: Retrive all images from chapter
-- **Example** : Observer this is url link -> "<https://lermangas.me/manga/mago-do-infinito/capitulo-82/>"
+- **Example** : Observer this is url link -> "<mago-do-infinito/capitulo-82/>"
 `GET http://localhost:3000/images?q=${url_link}`
 
 ### Users

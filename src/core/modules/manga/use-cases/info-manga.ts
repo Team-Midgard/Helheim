@@ -8,12 +8,11 @@ export default class InfoManga {
 
     async getMangas(query: string): Promise<lerMangasInterface[]> {
         const pageUrl = query;
-        const response = await fetch(pageUrl);
+        const response = await fetch(`${url}/manga/${pageUrl}`);
 
         const $ = load(await response.text());
         const data: lerMangasInterface[] = [];
 
-        // Para cada elemento que contém as informações do mangá
         $('.summary_content_wrap').each((_, element) => {
             const title = $(element).find('.post-title a').text().trim();
             const link = $(element).find('.post-title a').attr('href');
@@ -28,7 +27,6 @@ export default class InfoManga {
 
             const chapters: { title: string; link: string; releaseDate?: string }[] = [];
 
-            // Para cada capítulo dentro do mangá
             $(element).find('.main.version-chap .wp-manga-chapter').each((_, chapterElement) => {
                 const chapterTitle = $(chapterElement).find('a').text().trim();
                 const chapterLink = $(chapterElement).find('a').attr('href') ?? '';
@@ -38,7 +36,6 @@ export default class InfoManga {
 
             const description = $(element).find('.manga-excerpt p').text().trim();
 
-            // Adiciona os dados coletados à lista final
             data.push({
                 title,
                 link,
@@ -48,12 +45,11 @@ export default class InfoManga {
                 genres,
                 status,
                 releaseYear,
-                chapters, // Inclui os capítulos extraídos
+                chapters,
                 description
             });
         });
 
-        // Extração de capítulos da página da imagem enviada (adaptado)
         $('.page-content-listing .wp-manga-chapter').each((_, element) => {
             const chapterTitle = $(element).find('a').text().trim();
             const chapterLink = $(element).find('a').attr('href');

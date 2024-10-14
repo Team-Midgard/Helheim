@@ -1,11 +1,14 @@
 import { load } from "cheerio";
+import Config from "../../../../common/config/app.config";
+
+const url = Config.api.url
 export default class GetImagesManga {
 
     async getImagesManga(query: string): Promise<{ [index: number]: string }> {
         const pagesUrl = query;
+        const response = await fetch(`${url}/manga/${pagesUrl}`);
+        // https://lermangas.me/manga/mago-do-infinito/capitulo-82/
         if (!pagesUrl) throw new Error("URL não fornecida");
-
-        const response = await fetch(pagesUrl);
         if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
 
         const $ = load(await response.text());
