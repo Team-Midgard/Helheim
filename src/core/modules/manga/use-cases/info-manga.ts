@@ -13,11 +13,11 @@ export default class InfoManga {
         const $ = load(await response.text());
         const data: lerMangasInterface[] = [];
 
-        $('.summary_content_wrap').each((_, element) => {
-            const title = $(element).find('.post-title a').text().trim();
-            const link = $(element).find('.post-title a').attr('href');
-            const imageUrl = $(element).find('.summary_image img').attr('src');
-            const rating = $(element).find('.score').text().trim();
+        $('.wrap').each((_, element) => {
+            const title = $(element).find('.rate-title').attr('title') || ''
+            const imageUrl = $(element).find('.summary_image a img').attr('src') || ""
+            const rating = $(element).find('.post-total-rating .score').text().trim().split(' ')[0];
+            const typeManga = $(element).find('.summary-heading:contains("Tipo") + .summary-content').text().trim();
 
             const alternativeName = $(element).find('.summary-heading:contains("Nome alternativo") + .summary-content').text().trim();
             const genres = $(element).find('.summary-heading:contains("Gênero(s)") + .summary-content a')
@@ -38,27 +38,15 @@ export default class InfoManga {
 
             data.push({
                 title,
-                link,
+                description,
                 imageUrl,
+                typeManga,
                 rating,
                 alternativeName,
                 genres,
                 status,
                 releaseYear,
                 chapters,
-                description
-            });
-        });
-
-        $('.page-content-listing .wp-manga-chapter').each((_, element) => {
-            const chapterTitle = $(element).find('a').text().trim();
-            const chapterLink = $(element).find('a').attr('href');
-            const releaseDate = $(element).find('.chapter-release-date i').text().trim();
-
-            data.push({
-                title: chapterTitle,
-                link: chapterLink,
-                releaseDate,
             });
         });
 

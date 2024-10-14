@@ -1,6 +1,7 @@
 export default interface lerMangasInterface {
     title?: string;
     description?: string;
+    typeManga?: string;
     link?: string;
     imageUrl?: string;
     rating?: string;
