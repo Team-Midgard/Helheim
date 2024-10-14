@@ -95,3 +95,36 @@ Welcome to the Earth project! This project provides a simple API for retrieving 
 - **Description**: Search user by name
 - **Example** :
 `GET http://localhost:3000/users/name/:username`
+
+## **Endpoint**: `/users/login`
+
+- **Method**: `POST`
+- **Description**: Login an user
+- **Example** :
+`
+{
+  "email": "pedro@exemplo.com",
+  "password": "senha123"
+}`
+`POST http://localhost:3000/users/login`
+
+## **Endpoint**: `/users/profile`
+
+- **Method**: `GET`
+- **Description**: Profile for an user
+- **Example** :
+`GET http://localhost:3000/users/profile`
+
+## **Endpoint**: `/user/profile/favorite`
+
+- **Method**: `POST`
+- **Description**: Favorite an manga
+- **Example** :
+`POST http://localhost:3000/user/profile/favorite?slug=${manga_slug}`
+
+## **Endpoint** : `/users/profile/favorite`
+
+- **Method**: `GET`
+- **Description**: Get all favoriteds
+- **Example** :
+`GET http://localhost:3000/user/profile/favorite`

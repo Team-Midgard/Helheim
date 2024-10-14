@@ -59,4 +59,11 @@ export default class UserController {
         return await this.authSerivce.verifyJwt(jwt)
     }
 
+    async setFavoriteManga(jwt: string, mangaSlug: string) {
+        return await this.loginuser.setFavorites(jwt, mangaSlug)
+    }
+
+    async getAllFavorites(jwt: string) {
+        return await this.loginuser.getAllFavorite(jwt)
+    }
 }

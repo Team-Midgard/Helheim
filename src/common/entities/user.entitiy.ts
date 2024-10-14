@@ -15,6 +15,9 @@ export class UserEntity extends BaseEntity {
     @Column(({ type: "datetime", default: () => "CURRENT_TIMESTAMP" }))
     created_at: Date | undefined
 
+    @Column({ type: "json", nullable: true })
+    favorites: { slug: string }[];
+
     @Column(({ type: "datetime", nullable: true }))
     updated_at: Date | undefined
     @BeforeUpdate()

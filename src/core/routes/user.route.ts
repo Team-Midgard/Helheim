@@ -110,10 +110,40 @@ const UserRouter = (app: Hono) => {
             const userProfile = await newUser.userProfile(String(token));
             return c.json(userProfile);
         } catch (error) {
-            return c.json({ message: "Error fetching user", error: error instanceof Error ? error.message : "Unknown error" }, 500);
+            return c.json({ message: "Error fetching user", error: error }, 500);
         }
     });
 
+    app.post("/user/profile/favorite", async (c) => {
+        try {
+            const slug = c.req.query('slug');
+            const token = await getSignedCookie(c, Config.secret, 'token');
+            if (!token) throw new Error("Token not found");
+
+            const verified = await newUser.verifyJwt(String(token));
+            if (!verified) throw new Error("Invalid token");
+
+            const userProfile = await newUser.setFavoriteManga(String(token), String(slug));
+            return c.json(userProfile);
+        } catch (error) {
+            return c.json({ message: "Error fetching user", error: error }, 500);
+        }
+    });
+
+    app.get("/user/profile/favorite", async (c) => {
+        try {
+            const token = await getSignedCookie(c, Config.secret, 'token');
+            if (!token) throw new Error("Token not found");
+
+            const verified = await newUser.verifyJwt(String(token));
+            if (!verified) throw new Error("Invalid token");
+
+            const userProfile = await newUser.getAllFavorites(String(token));
+            return c.json(userProfile);
+        } catch (error) {
+            return c.json({ message: "Error fetching user", error: error }, 500);
+        }
+    });
 }
 
 export default UserRouter
